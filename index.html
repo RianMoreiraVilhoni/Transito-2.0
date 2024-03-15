@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transito</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .animacao-subir {
+            animation: subir 1s forwards infinite;
+        }
+
+        .animacao-subirD {
+            animation: subir2 2s forwards infinite;
+        }
+        .animacao-subirH {
+            animation: subirH 4s forwards infinite;
+        }
+        .mover{
+            animation: mover 0.001s ease-in-out infinite alternate; /* Define a animação */
+        }
+        @keyframes subir {
+            0% {
+                top: -330px;
+                /* Posição inicial */
+            }
+
+            /* 50% {
+                top: -5%;
+                /* Meio da tela */
+            /* }  */
+
+          
+
+            100% {
+                top: 55%;
+                /* Meio da tela */
+            }
+        }
+        @keyframes subir2 {
+            0% {
+                top: -330px;
+                /* Posição inicial */
+            }
+
+            /* 50% {
+                top: -13%;
+                /* Meio da tela */
+            /* }  */
+           
+
+            100% {
+                top: 45%;
+                /* Meio da tela */
+            }
+        }
+        @keyframes subirH {
+            0% {
+                left: -100px;
+                /* Posição inicial */
+            }
+
+            50% {
+                left: 15%;
+                /* Meio da tela */
+            }
+
+           
+
+            100% {
+                left: 160%;
+                /* Meio da tela */
+            }
+        }
+        @keyframes mover {
+            0% {
+                left: 0px; /* Posição inicial */
+            }
+            100% {
+                left: calc(0.2% - 1px); /* Posição final (da direita) */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+
+        
+        <div id="carroparado">
+
+        </div>
+        <div id="vrumvrum">
+
+        </div>
+        <br>
+        <div id="vrumvrum2">
+
+        </div>
+        <section id="momento">
+
+        </section>
+    </main>
+
+</body>
+<script>
+    let estado = null
+    let carro = document.getElementById("vrumvrum");
+    let carro2 = document.getElementById("vrumvrum2");
+    let carro3 = document.getElementById("carroparado");
+
+
+    // Função para iniciar a animação
+    function iniciarAnimacao() {
+        carro.classList.add("animacao-subir"); // Adiciona classe com a animação
+        carro2.classList.add("animacao-subirD"); // Adiciona classe com a animação
+        
+    }
+
+    // Função para parar a animação
+    function pararAnimacao() {
+        carro.classList.remove("animacao-subir"); // Remove classe com a animação
+        carro2.classList.remove("animacao-subirD"); // Remove classe com a animação
+        
+    }
+
+    function carroparadoanda(){
+        carro3.classList.add("animacao-subirH"); // Adiciona classe com a animação
+    }
+    function carroparadocontinuaparado(){
+        carro3.classList.remove("animacao-subirH"); // Remove classe com a animação
+    }
+
+    function carrotremendo(){
+        carro3.classList.add("mover"); // Adiciona classe com a animação
+    }
+    function carroparadetremer(){
+        carro3.classList.remove("mover"); // Remove classe com a animação
+    }
+
+
+
+    let momento = document.getElementById("momento")
+
+
+    fetch("https://niloweb.com.br/transit-room/api/reg_endpoint.php")
+        .then(resposta => resposta.json()
+            .then(dados1 => {
+                if (dados1[0].res == "B") {
+                    fetch("https://pokeapi.co/api/v2/pokemon/flareon")
+                        .then(resposta => resposta.json())
+                        .then(dados => {
+                            console.log(dados)
+                            momento.innerHTML="Esta fechado"
+                            carroparadocontinuaparado()
+                            iniciarAnimacao()
+                            carroparadetremer()
+                            playSound()
+                        })
+                }
+                else if (dados1[0].res == "L") {
+                    fetch("https://pokeapi.co/api/v2/pokemon/leafeon")
+                        .then(resposta => resposta.json())
+                        .then(dados => {
+                            console.log(dados)
+                            momento.innerHTML="Esta liberado"
+                            carroparadoanda()
+                            pararAnimacao()
+                            carroparadetremer()
+                            playSound()
+                        })
+                }
+                else {
+                    fetch("https://pokeapi.co/api/v2/pokemon/jolteon")
+                        .then(resposta => resposta.json())
+                        .then(dados => {
+                            console.log(dados)
+                            momento.innerHTML="Esta em espera"
+                            pararAnimacao()
+                            carrotremendo()
+                            playSound()
+                        })
+                }
+
+            })
+        )
+
+        function playSound() {
+        const audio = new Audio ('brain-aneurysm.mp3')
+                audio.onended = function() {
+            };
+            audio.play();
+        }
+ 
+
+
+        function recarregarPaginaAcadaMinuto() {
+            setInterval(function() {
+                location.reload();
+            }, 10000); // 60000 milissegundos = 1 minuto
+        }
+
+        // Chamar a função para iniciar o recarregamento da página a cada minuto
+        recarregarPaginaAcadaMinuto();
+
+    //     let carro = document.querySelector("#vrumvrum");
+
+    //     setTimeout(() => {
+    //         carro.style.left = window.innerWidth + "px"; // Move para a borda direita da tela
+    //     }, 2000); // Espera 1 segundo antes de iniciar a animação
+
+    //     setTimeout(() => {
+    //         carro.parentNode.removeChild(carro); // Remove o elemento após a animação
+    //     }, 5000); // Remove após 6 segundos (tempo da animação)
+
+    // ////////////////////////////////////////////////////////////
+    // //carro dois 2
+
+    //     let carro2 = document.querySelector("#vrumvrum2");
+
+    //     setTimeout(() => {
+    //         carro2.style.left = window.innerWidth + "px"; // Move para a borda direita da tela
+    //     }, 3000); // Espera 1 segundo antes de iniciar a animação
+
+    //     setTimeout(() => {
+    //         carro2.parentNode.removeChild(carro2); // Remove o elemento após a animação
+    //     }, 8000); // Remove após 6 segundos (tempo da animação)
+</script>
+
+</html>

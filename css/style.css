@@ -1,0 +1,64 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+body{
+    position: fixed;
+    width: 220vh;
+    height: 100vh;
+}
+main {
+    height: 100rem !important;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-image: url(../imagens/crossroad.png);
+}
+#infopok {
+    width: 100px;
+}
+
+#momento {
+    width: 100px;
+}
+#vrumvrum{
+    background-image: url(../imagens/carro.png);
+    background-size:contain;
+    width: 58px;
+    height: 100px !important;
+    position: relative;
+    left: 500px; /* Inicia na posição inicial */
+    top: -280px;
+    /* animation: subir 6s forwards infinite;*/
+} 
+#vrumvrum2{
+    background-image: url(../imagens/carro.png);
+    background-size:contain;
+    width: 58px;
+    height: 100px !important;
+    position: relative;
+    left: 440px; /* Inicia na posição inicial */
+    top: -330px;
+    /* animation: subir 3s forwards infinite; Animação repetida infinitamente com atraso de 2s */
+}
+#carroparado{
+    background-image: url(../imagens/carro.png);
+    background-size:contain;
+    width: 58px;
+    height: 100px !important;
+    position: relative;
+    left: 300px; /* Inicia na posição inicial */
+    top: 150px;
+    transform: rotate(270deg);
+}
+#momento{
+    position: relative;
+    bottom: 1px;
+}
+
+@media (max-width: 768px) {
+    main {
+        left: -200px;
+    }
+}
